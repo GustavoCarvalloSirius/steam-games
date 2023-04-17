@@ -1,12 +1,14 @@
-import { FlatList, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
 import { useEffect, useState } from "react";
 import { getAllGames } from "../../api";
 import { Game } from "../../types";
 import GameCard from "../../components/GameCard";
 import styles from "./styles";
+import Button from "../../components/Button";
 
 const Catalog = () => {
   const [games, setGames] = useState<Game[]>([]);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     fetchGame();
@@ -16,19 +18,32 @@ const Catalog = () => {
     getAllGames()
       .then((response) => {
         setGames(response);
-        console.log(response)
       })
-      .catch((error) => {
-        // todo: handle error
+      .catch(() => {
+        setLoadError(true);
       });
   };
+
   return (
     <View>
-      <FlatList
-        data={games}
-        renderItem={({ item }) => <GameCard game={item} />}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-      />
+      {!loadError ? (
+        <FlatList
+          data={games}
+          renderItem={({ item }) => <GameCard game={item} />}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+        />
+      ) : (
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>
+            An error occurred while loading the games
+          </Text>
+          <Button
+            title={"Retry"}
+            styles={{ button: styles.button }}
+            onPress={fetchGame}
+          />
+        </View>
+      )}
     </View>
   );
 };
