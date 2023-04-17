@@ -29,14 +29,14 @@ const Catalog = () => {
     getAllGames()
       .then((response) => {
         // note: this timeout was added to delay the request so the loader is visible
-        setTimeout(() => dispatch(setGames(response)), 1500)
+        setTimeout(() => dispatch(setGames(response)), 1500);
       })
       .catch(() => dispatch(setGamesError()));
   };
 
   return (
-    <View>
-      {loading && !error && <ActivityIndicator size={"large"}/>}
+    <View style={styles.catalog}>
+      {loading && !error && <ActivityIndicator size={"large"} />}
       {error && !loading && (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>
@@ -51,6 +51,7 @@ const Catalog = () => {
       )}
       {!loading && !error && (
         <FlatList
+          contentContainerStyle={styles.list}
           data={games}
           showsVerticalScrollIndicator={false}
           renderItem={({ item, index }) => {

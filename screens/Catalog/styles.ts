@@ -1,6 +1,10 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+  catalog: {
+    flex: 1,
+    width: "100%",
+  },
   separator: {
     width: "100%",
     height: 16,
@@ -17,6 +21,10 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 12,
+  },
+  list: {
+    width: "100%",
+    alignItems: "center",
   },
 });
 
