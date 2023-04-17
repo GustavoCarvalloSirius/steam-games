@@ -29,7 +29,10 @@ const Catalog = () => {
       {!loadError ? (
         <FlatList
           data={games}
-          renderItem={({ item }) => <GameCard game={item} />}
+          renderItem={({ item, index }) => {
+            const customStyles = index === 0 ? { card: { marginTop: 48 } } : {};
+            return <GameCard game={item} styles={customStyles} />;
+          }}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
         />
       ) : (

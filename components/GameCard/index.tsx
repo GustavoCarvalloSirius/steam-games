@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   ToastAndroid,
+  ViewStyle,
 } from "react-native";
 import styles from "./styles";
 import { Game } from "../../types";
@@ -11,9 +12,12 @@ import { useCallback, useMemo, useState } from "react";
 
 interface GameCardProps {
   game: Game;
+  styles?: {
+    card?: ViewStyle;
+  };
 }
 
-const GameCard = ({ game }: GameCardProps) => {
+const GameCard = ({ game, styles: customStyles }: GameCardProps) => {
   const [imageNotFoundError, setImageNotFoundError] = useState(false);
 
   const gameImageSrc = useMemo(() => {
@@ -35,7 +39,11 @@ const GameCard = ({ game }: GameCardProps) => {
 
   // todo: we might want to add a default image
   return (
-    <TouchableOpacity style={styles.card} activeOpacity={0.6} onPress={onPress}>
+    <TouchableOpacity
+      style={{ ...styles.card, ...customStyles?.card }}
+      activeOpacity={0.6}
+      onPress={onPress}
+    >
       {gameImageSrc && !imageNotFoundError ? (
         <ImageBackground
           source={{ uri: gameImageSrc }}
