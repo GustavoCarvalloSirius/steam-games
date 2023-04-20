@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
   catalog: {
     flex: 1,
     width: "100%",
+    justifyContent: "center"
   },
   separator: {
     width: "100%",

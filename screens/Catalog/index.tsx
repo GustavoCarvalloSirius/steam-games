@@ -6,6 +6,7 @@ import styles from "./styles";
 import Button from "../../components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  clearError,
   setGames,
   setGamesError,
   setGamesLoading,
@@ -30,9 +31,16 @@ const Catalog = () => {
       .then((response) => {
         // note: this timeout was added to delay the request so the loader is visible
         setTimeout(() => dispatch(setGames(response)), 1500);
+        // uncomment this to simulate and error
+        // setTimeout(() => dispatch(setGamesError()), 1500);
       })
       .catch(() => dispatch(setGamesError()));
   };
+
+  const retry = () => {
+    dispatch(clearError())
+    fetchGame()
+  }
 
   return (
     <View style={styles.catalog}>
@@ -45,7 +53,7 @@ const Catalog = () => {
           <Button
             title={"Retry"}
             styles={{ button: styles.button }}
-            onPress={fetchGame}
+            onPress={retry}
           />
         </View>
       )}

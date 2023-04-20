@@ -26,9 +26,13 @@ export const gameSlice = createSlice({
     },
     setGamesError: (state) => {
       state.gamesError = true;
+      state.gamesLoading = false;
     },
+    clearError: (state) => {
+      state.gamesError = false
+    }
   },
 });
 
-export const { setGames, setGamesLoading, setGamesError } = gameSlice.actions;
+export const { setGames, setGamesLoading, setGamesError, clearError } = gameSlice.actions;
 export default gameSlice.reducer;
